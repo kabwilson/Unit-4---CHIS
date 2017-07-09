@@ -13,6 +13,9 @@ keep_cols <- c("RBMI", "BMI_P", "RACEHPR2", "SRSEX", "SRAGE_P","MARIT2",
 adult <- adult[keep_cols]
 
 ### Exploring Data
+#### Load the ggplot2 package
+library(ggplot2)
+
 #### Explore the dataset with summary and str
 summary(adult)
 str(adult)
@@ -141,7 +144,8 @@ DF_melted <- DF_melted %>%
   mutate(ymax = cumsum(value/sum(value)),
          ymin = ymax - value/sum(value))
 
-#### Plot DF_melted using the classic theme
+#### Plot DF_melted using the tufte theme from the ggthemes package
+library(ggthemes)
 ggplot(DF_melted, aes(ymin = ymin,
                       ymax = ymax,
                       xmin = xmin,
@@ -151,7 +155,7 @@ ggplot(DF_melted, aes(ymin = ymin,
   scale_x_continuous(expand = c(0,0)) +
   scale_y_continuous(expand = c(0,0)) +
   BMI_fill +
-  theme_classic()
+  theme_tufte()
 
 ### Adding Statistics
 #### Perform chi.sq test on RBMI and SRAGE_P and store in results
@@ -176,7 +180,7 @@ ggplot(DF_all, aes(ymin = ymin,
   scale_fill_gradient2() +
   scale_x_continuous(expand = c(0,0)) +
   scale_y_continuous(expand = c(0,0)) +
-  theme_classic()
+  theme_tufte()
 
 ### Adding Text
 #### Calculate the midpoint on the x-axis in order to position labels on x axis
@@ -204,7 +208,7 @@ ggplot(DF_all, aes(ymin = ymin, ymax = ymax, xmin = xmin,
             hjust = 1,
             show.legend  = FALSE) +
   scale_fill_gradient2() +
-  theme_classic() +
+  theme_tufte() +
   theme(legend.position = "bottom")
 
 ### Generalizations
@@ -249,7 +253,7 @@ mosaicGG <- function(data, X, FILL) {
     scale_fill_gradient2("Residuals") +
     scale_x_continuous("Individuals", expand = c(0,0)) +
     scale_y_continuous("Proportion", expand = c(0,0)) +
-    theme_classic() +
+    theme_tufte() +
     theme(legend.position = "bottom")
   print(g)
 }
